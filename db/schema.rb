@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_24_003415) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_24_015053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_24_003415) do
     t.integer "rsvps_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "location"
+    t.integer "user_id"
   end
 
   create_table "rsvps", force: :cascade do |t|

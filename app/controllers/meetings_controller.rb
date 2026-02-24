@@ -24,6 +24,8 @@ class MeetingsController < ApplicationController
     the_meeting.date = params.fetch("query_date")
     the_meeting.time = params.fetch("query_time")
     the_meeting.meeting_name = params.fetch("query_meeting_name")
+    the_meeting.location = params.fetch("query_location")
+    the_meeting.user_id = current_user.id
 
     if the_meeting.valid?
       the_meeting.save
@@ -40,6 +42,7 @@ class MeetingsController < ApplicationController
     the_meeting.date = params.fetch("query_date")
     the_meeting.time = params.fetch("query_time")
     the_meeting.meeting_name = params.fetch("query_meeting_name")
+    the_meeting.location = params.fetch("query_location")
 
     if the_meeting.valid?
       the_meeting.save

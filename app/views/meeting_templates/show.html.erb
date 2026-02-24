@@ -12,6 +12,14 @@
 
     <dt>Time</dt>
     <dd><%= @the_meeting.time.strftime("%-I:%M %p") rescue @the_meeting.time %></dd>
+
+    <dt>Location</dt>
+    <dd><%= @the_meeting.location.presence || "TBD" %></dd>
+
+    <% if @the_meeting.user %>
+      <dt>Contact</dt>
+      <dd><a href="mailto:<%= @the_meeting.user.email %>">Contact <%= @the_meeting.user.name.presence || @the_meeting.user.email %> for more info</a></dd>
+    <% end %>
   </dl>
 </div>
 
@@ -56,6 +64,10 @@
     <div class="form-group">
       <label for="time_box">Time</label>
       <input type="time" id="time_box" name="query_time" value="<%= @the_meeting.time %>">
+    </div>
+    <div class="form-group">
+      <label for="location_box">Location</label>
+      <input type="text" id="location_box" name="query_location" value="<%= @the_meeting.location %>" placeholder="e.g. Crerar Library 390">
     </div>
     <button type="submit">Update meeting</button>
   </form>
