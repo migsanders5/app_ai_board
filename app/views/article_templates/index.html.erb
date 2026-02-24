@@ -1,60 +1,35 @@
-<h1>
-  List of all articles
-</h1>
+<h1>Articles</h1>
 
-<hr>
-
-<article>
-  <header>
-    <h2>
-      Add a new article
-    </h2>
-  </header>
-
+<div class="card">
+  <h2>Share an Article</h2>
   <form action="/insert_article" method="post">
-    <div>
-      <label for="article_url_box">
-        Article url
-      </label>
-
-      <input type="text" id="article_url_box" name="query_article_url">
-    </div>
-
-    <div>
-      <label for="article_title_box">
-        Article title
-      </label>
-
+    <div class="form-group">
+      <label for="article_title_box">Title</label>
       <input type="text" id="article_title_box" name="query_article_title">
     </div>
-
-    <div>
-      <label for="user_caption_box">
-        User caption
-      </label>
-
+    <div class="form-group">
+      <label for="article_url_box">URL</label>
+      <input type="text" id="article_url_box" name="query_article_url">
+    </div>
+    <div class="form-group">
+      <label for="user_caption_box">Caption</label>
       <input type="text" id="user_caption_box" name="query_user_caption">
     </div>
-
-    <button type="submit">
-      Create article
-    </button>
+    <button type="submit">Post article</button>
   </form>
-</article>
+</div>
 
-<hr>
-
-<article>
-  <ul>
-    <% @list_of_articles.each do |an_article| %>
-      <li>
-        <a href="/articles/<%= an_article.id %>">
-          <%= an_article.article_title %>
-        </a>
-        (<%= an_article.comments_count %> comments)
-      </li>
+<div class="card">
+  <ul class="item-list">
+    <% if @list_of_articles.any? %>
+      <% @list_of_articles.each do |an_article| %>
+        <li>
+          <a href="/articles/<%= an_article.id %>"><%= an_article.article_title %></a>
+          <span class="item-meta"><%= an_article.comments_count %> comment<%= an_article.comments_count == 1 ? "" : "s" %></span>
+        </li>
+      <% end %>
+    <% else %>
+      <li><span class="item-meta">No articles yet.</span></li>
     <% end %>
   </ul>
-</article>
-
-<hr>
+</div>

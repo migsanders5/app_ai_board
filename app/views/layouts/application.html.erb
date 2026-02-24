@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Rails 8 Template" %></title>
+    <title><%= content_for(:title) || "UChicago Applied AI Board" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -10,39 +10,42 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <nav>
-      <a href="/meetings">Meetings</a> |
-      <a href="/articles">Articles</a> |
-      <a href="/jobs">Jobs</a>
-      <% if current_user %>
-        | Signed in as <%= current_user.email %>
-        | <%= link_to "Sign out", destroy_user_session_path %>
-      <% else %>
-        | <%= link_to "Sign in", new_user_session_path %>
-        | <%= link_to "Sign up", new_user_registration_path %>
-      <% end %>
+      <span class="nav-brand">Applied AI @ UChicago</span>
+      <div class="nav-links">
+        <a href="/meetings">Meetings</a>
+        <a href="/articles">Articles</a>
+        <a href="/jobs">Jobs</a>
+      </div>
+      <div class="nav-user">
+        <% if current_user %>
+          <span><%= current_user.name.presence || current_user.email %></span>
+          <%= link_to "Sign out", destroy_user_session_path %>
+        <% else %>
+          <%= link_to "Sign in", new_user_session_path %>
+          <%= link_to "Sign up", new_user_registration_path %>
+        <% end %>
+      </div>
     </nav>
 
     <% if notice %>
-      <p style="color: green;"><%= notice %></p>
+      <p class="flash-notice"><%= notice %></p>
     <% end %>
     <% if alert %>
-      <p style="color: red;"><%= alert %></p>
+      <p class="flash-alert"><%= alert %></p>
     <% end %>
 
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

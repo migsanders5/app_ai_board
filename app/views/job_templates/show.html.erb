@@ -1,138 +1,66 @@
-<h1>
-  Job #<%= @the_job.id %> details
-</h1>
+<div class="page-actions">
+  <a href="/jobs">&larr; Back to jobs</a>
+  <a href="/delete_job/<%= @the_job.id %>" class="btn-danger">Delete job</a>
+</div>
 
-<article>
-  <div>
-    <a href="/jobs">
-      Go back
-    </a>
-  </div>
+<h1><%= @the_job.title %></h1>
 
-  <div>
-    <a href="/delete_job/<%= @the_job.id %>">
-      Delete job
-    </a>
-  </div>
+<div class="card">
   <dl>
-    <dt>
-      Title
-    </dt>
-    <dd>
-      <%= @the_job.title %>
-    </dd>
+    <dt>Company</dt>
+    <dd><%= @the_job.company %></dd>
 
-    <dt>
-      Company
-    </dt>
-    <dd>
-      <%= @the_job.company %>
-    </dd>
+    <dt>Apply</dt>
+    <dd><a href="<%= @the_job.application_url %>" target="_blank"><%= @the_job.application_url %></a></dd>
 
-    <dt>
-      Application url
-    </dt>
-    <dd>
-      <a href="<%= @the_job.application_url %>" target="_blank"><%= @the_job.application_url %></a>
-    </dd>
+    <dt>Deadline</dt>
+    <dd><%= @the_job.deadline.strftime("%B %-d, %Y") %></dd>
 
-    <dt>
-      Deadline
-    </dt>
-    <dd>
-      <%= @the_job.deadline %>
-    </dd>
-
-    <dt>
-      Created at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_job.created_at) %> ago
-    </dd>
-
-    <dt>
-      Updated at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_job.updated_at) %> ago
-    </dd>
+    <dt>Posted</dt>
+    <dd><%= time_ago_in_words(@the_job.created_at) %> ago</dd>
   </dl>
-</article>
+</div>
 
-<hr>
-
-<article>
-  <header>
-    <h2>Tags</h2>
-  </header>
-
-  <ul>
-    <% @the_job.tags.each do |a_tag| %>
-      <li>
-        <%= a_tag.tag %>
-        <a href="/delete_tag/<%= a_tag.id %>">Remove</a>
-      </li>
+<div class="card">
+  <h2>Tags</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1rem;">
+    <% if @the_job.tags.any? %>
+      <% @the_job.tags.each do |a_tag| %>
+        <span>
+          <span class="tag-badge"><%= a_tag.tag %></span>
+          <a href="/delete_tag/<%= a_tag.id %>" style="font-size:.75rem; color:var(--muted); margin-left:.15rem;">&times;</a>
+        </span>
+      <% end %>
+    <% else %>
+      <span class="item-meta">No tags yet.</span>
     <% end %>
-  </ul>
-
-  <h3>Add a tag</h3>
-  <form action="/insert_tag" method="post">
+  </div>
+  <form action="/insert_tag" method="post" style="display:flex; gap:.5rem; align-items:center;">
     <input type="hidden" name="query_job_id" value="<%= @the_job.id %>">
-    <div>
-      <label for="tag_box">Tag</label>
-      <input type="text" id="tag_box" name="query_tag">
-    </div>
-    <button type="submit">Add tag</button>
+    <input type="text" name="query_tag" placeholder="Add a tag…" style="width:auto; flex:1;">
+    <button type="submit">Add</button>
   </form>
-</article>
+</div>
 
-<hr>
-
-
-<article>
-  <header>
-    <h2>
-      Edit job
-    </h2>
-  </header>
-
-  <form action="/modify_job/<%= @the_job.id %>"  method="post" >
-    <div>
-      <label for="title_box">
-        Title
-      </label>
-
+<div class="card">
+  <h2>Edit Job</h2>
+  <form action="/modify_job/<%= @the_job.id %>" method="post">
+    <div class="form-group">
+      <label for="title_box">Title</label>
       <input type="text" id="title_box" name="query_title" value="<%= @the_job.title %>">
     </div>
-
-    <div>
-      <label for="company_box">
-        Company
-      </label>
-
+    <div class="form-group">
+      <label for="company_box">Company</label>
       <input type="text" id="company_box" name="query_company" value="<%= @the_job.company %>">
     </div>
-
-    <div>
-      <label for="application_url_box">
-        Application url
-      </label>
-
+    <div class="form-group">
+      <label for="application_url_box">Application URL</label>
       <input type="text" id="application_url_box" name="query_application_url" value="<%= @the_job.application_url %>">
     </div>
-
-    <div>
-      <label for="deadline_box">
-        Deadline
-      </label>
-
+    <div class="form-group">
+      <label for="deadline_box">Deadline</label>
       <input type="date" id="deadline_box" name="query_deadline" value="<%= @the_job.deadline %>">
     </div>
-
-    <button type="submit">
-      Update job
-    </button>
+    <button type="submit">Update job</button>
   </form>
-</article>
-
-<hr>
+</div>

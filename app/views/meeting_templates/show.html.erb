@@ -1,122 +1,62 @@
-<h1>
-  Meeting #<%= @the_meeting.id %> details
-</h1>
+<div class="page-actions">
+  <a href="/meetings">&larr; Back to meetings</a>
+  <a href="/delete_meeting/<%= @the_meeting.id %>" class="btn-danger">Delete meeting</a>
+</div>
 
-<article>
-  <div>
-    <a href="/meetings">
-      Go back
-    </a>
-  </div>
+<h1><%= @the_meeting.meeting_name %></h1>
 
-  <div>
-    <a href="/delete_meeting/<%= @the_meeting.id %>">
-      Delete meeting
-    </a>
-  </div>
+<div class="card">
   <dl>
-    <dt>
-      Date
-    </dt>
-    <dd>
-      <%= @the_meeting.date %>
-    </dd>
+    <dt>Date</dt>
+    <dd><%= @the_meeting.date.strftime("%B %-d, %Y") %></dd>
 
-    <dt>
-      Time
-    </dt>
-    <dd>
-      <%= @the_meeting.time %>
-    </dd>
-
-    <dt>
-      Meeting name
-    </dt>
-    <dd>
-      <%= @the_meeting.meeting_name %>
-    </dd>
-
-    <dt>
-      Created at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_meeting.created_at) %> ago
-    </dd>
-
-    <dt>
-      Updated at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_meeting.updated_at) %> ago
-    </dd>
+    <dt>Time</dt>
+    <dd><%= @the_meeting.time.strftime("%-I:%M %p") rescue @the_meeting.time %></dd>
   </dl>
-</article>
+</div>
 
-<hr>
-
-
-<article>
-  <header>
-    <h2>
-      Edit meeting
-    </h2>
-  </header>
-
-  <form action="/modify_meeting/<%= @the_meeting.id %>"  method="post" >
-    <div>
-      <label for="date_box">
-        Date
-      </label>
-
-      <input type="date" id="date_box" name="query_date" value="<%= @the_meeting.date %>">
-    </div>
-
-    <div>
-      <label for="time_box">
-        Time
-      </label>
-
-      <input type="time" id="time_box" name="query_time" value="<%= @the_meeting.time %>">
-    </div>
-
-    <div>
-      <label for="meeting_name_box">
-        Meeting name
-      </label>
-
-      <input type="text" id="meeting_name_box" name="query_meeting_name" value="<%= @the_meeting.meeting_name %>">
-    </div>
-
-    <button type="submit">
-      Update meeting
-    </button>
-  </form>
-</article>
-
-<hr>
-
-<article>
-  <header>
-    <h2>RSVP</h2>
-  </header>
-
+<div class="card">
+  <h2>Your RSVP</h2>
   <% if @current_user_rsvp %>
-    <p>You are going!</p>
-    <a href="/delete_rsvp/<%= @current_user_rsvp.id %>">Cancel RSVP</a>
+    <p style="color: var(--success-fg); font-weight: 600;">&#10003; You are going!</p>
+    <a href="/delete_rsvp/<%= @current_user_rsvp.id %>" class="btn-danger" style="font-size:.875rem;">Cancel RSVP</a>
   <% else %>
     <form action="/insert_rsvp" method="post">
       <input type="hidden" name="query_meeting_id" value="<%= @the_meeting.id %>">
       <input type="hidden" name="query_going" value="true">
-      <button type="submit">RSVP</button>
+      <button type="submit">RSVP to this meeting</button>
     </form>
   <% end %>
 
+  <hr>
+
   <h3>Attendees (<%= @list_of_rsvps.count %>)</h3>
-  <ul>
-    <% @list_of_rsvps.each do |an_rsvp| %>
-      <li><%= an_rsvp.user.name.presence || an_rsvp.user.email %></li>
+  <ul class="attendee-list">
+    <% if @list_of_rsvps.any? %>
+      <% @list_of_rsvps.each do |an_rsvp| %>
+        <li><%= an_rsvp.user.name.presence || an_rsvp.user.email %></li>
+      <% end %>
+    <% else %>
+      <li><span class="item-meta">No RSVPs yet.</span></li>
     <% end %>
   </ul>
-</article>
+</div>
 
-<hr>
+<div class="card">
+  <h2>Edit Meeting</h2>
+  <form action="/modify_meeting/<%= @the_meeting.id %>" method="post">
+    <div class="form-group">
+      <label for="meeting_name_box">Meeting name</label>
+      <input type="text" id="meeting_name_box" name="query_meeting_name" value="<%= @the_meeting.meeting_name %>">
+    </div>
+    <div class="form-group">
+      <label for="date_box">Date</label>
+      <input type="date" id="date_box" name="query_date" value="<%= @the_meeting.date %>">
+    </div>
+    <div class="form-group">
+      <label for="time_box">Time</label>
+      <input type="time" id="time_box" name="query_time" value="<%= @the_meeting.time %>">
+    </div>
+    <button type="submit">Update meeting</button>
+  </form>
+</div>

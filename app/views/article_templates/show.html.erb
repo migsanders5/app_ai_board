@@ -1,132 +1,68 @@
-<h1>
-  Article #<%= @the_article.id %> details
-</h1>
+<div class="page-actions">
+  <a href="/articles">&larr; Back to articles</a>
+  <a href="/delete_article/<%= @the_article.id %>" class="btn-danger">Delete article</a>
+</div>
 
-<article>
-  <div>
-    <a href="/articles">
-      Go back
-    </a>
-  </div>
+<h1><%= @the_article.article_title %></h1>
 
-  <div>
-    <a href="/delete_article/<%= @the_article.id %>">
-      Delete article
-    </a>
-  </div>
+<div class="card">
   <dl>
-    <dt>
-      Article url
-    </dt>
-    <dd>
-      <%= @the_article.article_url %>
-    </dd>
+    <dt>Link</dt>
+    <dd><a href="<%= @the_article.article_url %>" target="_blank"><%= @the_article.article_url %></a></dd>
 
-    <dt>
-      Article title
-    </dt>
-    <dd>
-      <%= @the_article.article_title %>
-    </dd>
+    <dt>Caption</dt>
+    <dd><%= @the_article.user_caption %></dd>
 
-    <dt>
-      User
-    </dt>
-    <dd>
-      <%= @the_article.user_id %>
-    </dd>
-
-    <dt>
-      User caption
-    </dt>
-    <dd>
-      <%= @the_article.user_caption %>
-    </dd>
-
-    <dt>
-      Created at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_article.created_at) %> ago
-    </dd>
-
-    <dt>
-      Updated at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_article.updated_at) %> ago
-    </dd>
+    <dt>Posted</dt>
+    <dd><%= time_ago_in_words(@the_article.created_at) %> ago</dd>
   </dl>
-</article>
+</div>
 
-<hr>
-
-
-<article>
-  <header>
-    <h2>
-      Edit article
-    </h2>
-  </header>
-
-  <form action="/modify_article/<%= @the_article.id %>"  method="post" >
-    <div>
-      <label for="article_url_box">
-        Article url
-      </label>
-
-      <input type="text" id="article_url_box" name="query_article_url" value="<%= @the_article.article_url %>">
-    </div>
-
-    <div>
-      <label for="article_title_box">
-        Article title
-      </label>
-
-      <input type="text" id="article_title_box" name="query_article_title" value="<%= @the_article.article_title %>">
-    </div>
-
-    <div>
-      <label for="user_caption_box">
-        User caption
-      </label>
-
-      <input type="text" id="user_caption_box" name="query_user_caption" value="<%= @the_article.user_caption %>">
-    </div>
-
-    <button type="submit">
-      Update article
-    </button>
-  </form>
-</article>
-
-<hr>
-
-<article>
-  <header>
-    <h2>
-      Comments
-    </h2>
-  </header>
-
-  <ul>
-    <% @list_of_comments.each do |a_comment| %>
-      <li>
-        <strong>User <%= a_comment.user_id %>:</strong> <%= a_comment.comment %>
-        <a href="/delete_comment/<%= a_comment.id %>">Delete</a>
-      </li>
+<div class="card">
+  <h2>Comments (<%= @list_of_comments.count %>)</h2>
+  <ul class="comment-list">
+    <% if @list_of_comments.any? %>
+      <% @list_of_comments.each do |a_comment| %>
+        <li style="display:flex; justify-content:space-between; align-items:baseline;">
+          <span>
+            <strong><%= a_comment.user_id %></strong>
+            &nbsp;<%= a_comment.comment %>
+          </span>
+          <a href="/delete_comment/<%= a_comment.id %>" class="btn-danger" style="font-size:.8rem; white-space:nowrap;">Delete</a>
+        </li>
+      <% end %>
+    <% else %>
+      <li><span class="item-meta">No comments yet.</span></li>
     <% end %>
   </ul>
+
+  <hr>
 
   <h3>Add a comment</h3>
   <form action="/insert_comment" method="post">
     <input type="hidden" name="query_article_id" value="<%= @the_article.id %>">
-    <div>
-      <label for="comment_box">Comment</label>
-      <input type="text" id="comment_box" name="query_comment">
+    <div class="form-group">
+      <input type="text" name="query_comment" placeholder="Write a comment…">
     </div>
     <button type="submit">Post comment</button>
   </form>
-</article>
+</div>
 
-<hr>
+<div class="card">
+  <h2>Edit Article</h2>
+  <form action="/modify_article/<%= @the_article.id %>" method="post">
+    <div class="form-group">
+      <label for="article_title_box">Title</label>
+      <input type="text" id="article_title_box" name="query_article_title" value="<%= @the_article.article_title %>">
+    </div>
+    <div class="form-group">
+      <label for="article_url_box">URL</label>
+      <input type="text" id="article_url_box" name="query_article_url" value="<%= @the_article.article_url %>">
+    </div>
+    <div class="form-group">
+      <label for="user_caption_box">Caption</label>
+      <input type="text" id="user_caption_box" name="query_user_caption" value="<%= @the_article.user_caption %>">
+    </div>
+    <button type="submit">Update article</button>
+  </form>
+</div>

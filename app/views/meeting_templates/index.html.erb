@@ -1,77 +1,52 @@
-<h1>
-  List of all meetings
-</h1>
+<h1>Meetings</h1>
 
-<hr>
-
-<article>
-  <header>
-    <h2>
-      Add a new meeting
-    </h2>
-  </header>
-
+<div class="card">
+  <h2>Schedule a New Meeting</h2>
   <form action="/insert_meeting" method="post">
-    <div>
-      <label for="date_box">
-        Date
-      </label>
-
-      <input type="date" id="date_box" name="query_date">
-    </div>
-
-    <div>
-      <label for="time_box">
-        Time
-      </label>
-
-      <input type="time" id="time_box" name="query_time">
-    </div>
-
-    <div>
-      <label for="meeting_name_box">
-        Meeting name
-      </label>
-
+    <div class="form-group">
+      <label for="meeting_name_box">Meeting name</label>
       <input type="text" id="meeting_name_box" name="query_meeting_name">
     </div>
-
-    <button type="submit">
-      Create meeting
-    </button>
+    <div class="form-group">
+      <label for="date_box">Date</label>
+      <input type="date" id="date_box" name="query_date">
+    </div>
+    <div class="form-group">
+      <label for="time_box">Time</label>
+      <input type="time" id="time_box" name="query_time">
+    </div>
+    <button type="submit">Create meeting</button>
   </form>
-</article>
+</div>
 
-<hr>
-
-<article>
-  <h2>Upcoming Meetings</h2>
-  <ul>
-    <% @upcoming_meetings.each do |a_meeting| %>
-      <li>
-        <a href="/meetings/<%= a_meeting.id %>">
-          <%= a_meeting.meeting_name %>
-        </a>
-        — <%= a_meeting.date %>
-      </li>
+<h2><span class="section-title">Upcoming Meetings</span></h2>
+<div class="card">
+  <ul class="item-list">
+    <% if @upcoming_meetings.any? %>
+      <% @upcoming_meetings.each do |a_meeting| %>
+        <li>
+          <a href="/meetings/<%= a_meeting.id %>"><%= a_meeting.meeting_name %></a>
+          <span class="item-meta"><%= a_meeting.date.strftime("%B %-d, %Y") %></span>
+        </li>
+      <% end %>
+    <% else %>
+      <li><span class="item-meta">No upcoming meetings.</span></li>
     <% end %>
   </ul>
-</article>
+</div>
 
-<hr>
-
-<article>
-  <h2>Past Meetings</h2>
-  <ul>
-    <% @past_meetings.each do |a_meeting| %>
-      <li>
-        <a href="/meetings/<%= a_meeting.id %>">
-          <%= a_meeting.meeting_name %>
-        </a>
-        — <%= a_meeting.date %>
-      </li>
+<h2><span class="section-title">Past Meetings</span></h2>
+<div class="card">
+  <ul class="item-list">
+    <% if @past_meetings.any? %>
+      <% @past_meetings.each do |a_meeting| %>
+        <li>
+          <a href="/meetings/<%= a_meeting.id %>"><%= a_meeting.meeting_name %></a>
+          <span class="item-meta"><%= a_meeting.date.strftime("%B %-d, %Y") %></span>
+        </li>
+      <% end %>
+    <% else %>
+      <li><span class="item-meta">No past meetings.</span></li>
     <% end %>
   </ul>
-</article>
-
-<hr>
+</div>
