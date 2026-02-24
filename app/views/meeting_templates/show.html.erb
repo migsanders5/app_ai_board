@@ -114,7 +114,7 @@
   <h3>Attendees (<%= @list_of_rsvps.count %>)</h3>
   <ul>
     <% @list_of_rsvps.each do |an_rsvp| %>
-      <li>User <%= an_rsvp.user_id %></li>
+      <li><%= an_rsvp.user.name.presence || an_rsvp.user.email %></li>
     <% end %>
   </ul>
 </article>

@@ -32,6 +32,8 @@ class User < ApplicationRecord
   has_many  :comments, class_name: "Comment", foreign_key: "user_id"
 
 
+  validates :name, presence: true
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
