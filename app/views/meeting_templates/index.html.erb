@@ -1,0 +1,77 @@
+<h1>
+  List of all meetings
+</h1>
+
+<hr>
+
+<article>
+  <header>
+    <h2>
+      Add a new meeting
+    </h2>
+  </header>
+
+  <form action="/insert_meeting" method="post">
+    <div>
+      <label for="date_box">
+        Date
+      </label>
+
+      <input type="date" id="date_box" name="query_date">
+    </div>
+
+    <div>
+      <label for="time_box">
+        Time
+      </label>
+
+      <input type="time" id="time_box" name="query_time">
+    </div>
+
+    <div>
+      <label for="meeting_name_box">
+        Meeting name
+      </label>
+
+      <input type="text" id="meeting_name_box" name="query_meeting_name">
+    </div>
+
+    <button type="submit">
+      Create meeting
+    </button>
+  </form>
+</article>
+
+<hr>
+
+<article>
+  <h2>Upcoming Meetings</h2>
+  <ul>
+    <% @upcoming_meetings.each do |a_meeting| %>
+      <li>
+        <a href="/meetings/<%= a_meeting.id %>">
+          <%= a_meeting.meeting_name %>
+        </a>
+        — <%= a_meeting.date %>
+      </li>
+    <% end %>
+  </ul>
+</article>
+
+<hr>
+
+<article>
+  <h2>Past Meetings</h2>
+  <ul>
+    <% @past_meetings.each do |a_meeting| %>
+      <li>
+        <a href="/meetings/<%= a_meeting.id %>">
+          <%= a_meeting.meeting_name %>
+        </a>
+        — <%= a_meeting.date %>
+      </li>
+    <% end %>
+  </ul>
+</article>
+
+<hr>

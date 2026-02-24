@@ -1,0 +1,96 @@
+<h1>
+  Rsvp #<%= @the_rsvp.id %> details
+</h1>
+
+<article>
+  <div>
+    <a href="/rsvps">
+      Go back
+    </a>
+  </div>
+
+  <div>
+    <a href="/delete_rsvp/<%= @the_rsvp.id %>">
+      Delete rsvp
+    </a>
+  </div>
+  <dl>
+    <dt>
+      User
+    </dt>
+    <dd>
+      <%= @the_rsvp.user_id %>
+    </dd>
+
+    <dt>
+      Meeting
+    </dt>
+    <dd>
+      <%= @the_rsvp.meeting_id %>
+    </dd>
+
+    <dt>
+      Going
+    </dt>
+    <dd>
+      <%= @the_rsvp.going %>
+    </dd>
+
+    <dt>
+      Created at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_rsvp.created_at) %> ago
+    </dd>
+
+    <dt>
+      Updated at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_rsvp.updated_at) %> ago
+    </dd>
+  </dl>
+</article>
+
+<hr>
+
+
+<article>
+  <header>
+    <h2>
+      Edit rsvp
+    </h2>
+  </header>
+
+  <form action="/modify_rsvp/<%= @the_rsvp.id %>"  method="post" >
+    <div>
+      <label for="user_id_box">
+        User
+      </label>
+
+      <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_rsvp.user_id %>">
+    </div>
+
+    <div>
+      <label for="meeting_id_box">
+        Meeting
+      </label>
+
+      <input type="text" id="meeting_id_box" name="query_meeting_id" value="<%= @the_rsvp.meeting_id %>">
+    </div>
+
+    <div>
+      <label for="going_box">
+        Going
+      </label>
+
+      <input type="text" id="going_box" name="query_going" value="<%= @the_rsvp.going %>">
+    </div>
+
+    <button type="submit">
+      Update rsvp
+    </button>
+  </form>
+</article>
+
+<hr>

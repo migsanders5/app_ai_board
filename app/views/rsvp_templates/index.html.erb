@@ -1,0 +1,59 @@
+<h1>
+  List of all rsvps
+</h1>
+
+<hr>
+
+<article>
+  <header>
+    <h2>
+      Add a new rsvp
+    </h2>
+  </header>
+
+  <form action="/insert_rsvp" method="post">
+    <div>
+      <label for="user_id_box">
+        User
+      </label>
+
+      <input type="text" id="user_id_box" name="query_user_id">
+    </div>
+
+    <div>
+      <label for="meeting_id_box">
+        Meeting
+      </label>
+
+      <input type="text" id="meeting_id_box" name="query_meeting_id">
+    </div>
+
+    <div>
+      <label for="going_box">
+        Going
+      </label>
+
+      <input type="text" id="going_box" name="query_going">
+    </div>
+
+    <button type="submit">
+      Create rsvp
+    </button>
+  </form>
+</article>
+
+<hr>
+
+<article>
+  <ul>
+    <% @list_of_rsvps.each do |a_rsvp| %>
+      <li>
+        <a href="/rsvps/<%= a_rsvp.id %>">
+          Rsvp #<%= a_rsvp.id %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</article>
+
+<hr>

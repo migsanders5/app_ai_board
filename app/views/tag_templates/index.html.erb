@@ -1,0 +1,51 @@
+<h1>
+  List of all tags
+</h1>
+
+<hr>
+
+<article>
+  <header>
+    <h2>
+      Add a new tag
+    </h2>
+  </header>
+
+  <form action="/insert_tag" method="post">
+    <div>
+      <label for="job_id_box">
+        Job
+      </label>
+
+      <input type="text" id="job_id_box" name="query_job_id">
+    </div>
+
+    <div>
+      <label for="tag_box">
+        Tag
+      </label>
+
+      <input type="text" id="tag_box" name="query_tag">
+    </div>
+
+    <button type="submit">
+      Create tag
+    </button>
+  </form>
+</article>
+
+<hr>
+
+<article>
+  <ul>
+    <% @list_of_tags.each do |a_tag| %>
+      <li>
+        <a href="/tags/<%= a_tag.id %>">
+          Tag #<%= a_tag.id %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</article>
+
+<hr>

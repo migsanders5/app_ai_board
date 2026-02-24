@@ -1,0 +1,132 @@
+<h1>
+  Article #<%= @the_article.id %> details
+</h1>
+
+<article>
+  <div>
+    <a href="/articles">
+      Go back
+    </a>
+  </div>
+
+  <div>
+    <a href="/delete_article/<%= @the_article.id %>">
+      Delete article
+    </a>
+  </div>
+  <dl>
+    <dt>
+      Article url
+    </dt>
+    <dd>
+      <%= @the_article.article_url %>
+    </dd>
+
+    <dt>
+      Article title
+    </dt>
+    <dd>
+      <%= @the_article.article_title %>
+    </dd>
+
+    <dt>
+      User
+    </dt>
+    <dd>
+      <%= @the_article.user_id %>
+    </dd>
+
+    <dt>
+      User caption
+    </dt>
+    <dd>
+      <%= @the_article.user_caption %>
+    </dd>
+
+    <dt>
+      Created at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_article.created_at) %> ago
+    </dd>
+
+    <dt>
+      Updated at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_article.updated_at) %> ago
+    </dd>
+  </dl>
+</article>
+
+<hr>
+
+
+<article>
+  <header>
+    <h2>
+      Edit article
+    </h2>
+  </header>
+
+  <form action="/modify_article/<%= @the_article.id %>"  method="post" >
+    <div>
+      <label for="article_url_box">
+        Article url
+      </label>
+
+      <input type="text" id="article_url_box" name="query_article_url" value="<%= @the_article.article_url %>">
+    </div>
+
+    <div>
+      <label for="article_title_box">
+        Article title
+      </label>
+
+      <input type="text" id="article_title_box" name="query_article_title" value="<%= @the_article.article_title %>">
+    </div>
+
+    <div>
+      <label for="user_caption_box">
+        User caption
+      </label>
+
+      <input type="text" id="user_caption_box" name="query_user_caption" value="<%= @the_article.user_caption %>">
+    </div>
+
+    <button type="submit">
+      Update article
+    </button>
+  </form>
+</article>
+
+<hr>
+
+<article>
+  <header>
+    <h2>
+      Comments
+    </h2>
+  </header>
+
+  <ul>
+    <% @list_of_comments.each do |a_comment| %>
+      <li>
+        <strong>User <%= a_comment.user_id %>:</strong> <%= a_comment.comment %>
+        <a href="/delete_comment/<%= a_comment.id %>">Delete</a>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Add a comment</h3>
+  <form action="/insert_comment" method="post">
+    <input type="hidden" name="query_article_id" value="<%= @the_article.id %>">
+    <div>
+      <label for="comment_box">Comment</label>
+      <input type="text" id="comment_box" name="query_comment">
+    </div>
+    <button type="submit">Post comment</button>
+  </form>
+</article>
+
+<hr>

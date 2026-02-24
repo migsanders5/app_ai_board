@@ -1,0 +1,138 @@
+<h1>
+  Job #<%= @the_job.id %> details
+</h1>
+
+<article>
+  <div>
+    <a href="/jobs">
+      Go back
+    </a>
+  </div>
+
+  <div>
+    <a href="/delete_job/<%= @the_job.id %>">
+      Delete job
+    </a>
+  </div>
+  <dl>
+    <dt>
+      Title
+    </dt>
+    <dd>
+      <%= @the_job.title %>
+    </dd>
+
+    <dt>
+      Company
+    </dt>
+    <dd>
+      <%= @the_job.company %>
+    </dd>
+
+    <dt>
+      Application url
+    </dt>
+    <dd>
+      <%= @the_job.application_url %>
+    </dd>
+
+    <dt>
+      Deadline
+    </dt>
+    <dd>
+      <%= @the_job.deadline %>
+    </dd>
+
+    <dt>
+      Created at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_job.created_at) %> ago
+    </dd>
+
+    <dt>
+      Updated at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_job.updated_at) %> ago
+    </dd>
+  </dl>
+</article>
+
+<hr>
+
+<article>
+  <header>
+    <h2>Tags</h2>
+  </header>
+
+  <ul>
+    <% @the_job.tags.each do |a_tag| %>
+      <li>
+        <%= a_tag.tag %>
+        <a href="/delete_tag/<%= a_tag.id %>">Remove</a>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Add a tag</h3>
+  <form action="/insert_tag" method="post">
+    <input type="hidden" name="query_job_id" value="<%= @the_job.id %>">
+    <div>
+      <label for="tag_box">Tag</label>
+      <input type="text" id="tag_box" name="query_tag">
+    </div>
+    <button type="submit">Add tag</button>
+  </form>
+</article>
+
+<hr>
+
+
+<article>
+  <header>
+    <h2>
+      Edit job
+    </h2>
+  </header>
+
+  <form action="/modify_job/<%= @the_job.id %>"  method="post" >
+    <div>
+      <label for="title_box">
+        Title
+      </label>
+
+      <input type="text" id="title_box" name="query_title" value="<%= @the_job.title %>">
+    </div>
+
+    <div>
+      <label for="company_box">
+        Company
+      </label>
+
+      <input type="text" id="company_box" name="query_company" value="<%= @the_job.company %>">
+    </div>
+
+    <div>
+      <label for="application_url_box">
+        Application url
+      </label>
+
+      <input type="text" id="application_url_box" name="query_application_url" value="<%= @the_job.application_url %>">
+    </div>
+
+    <div>
+      <label for="deadline_box">
+        Deadline
+      </label>
+
+      <input type="date" id="deadline_box" name="query_deadline" value="<%= @the_job.deadline %>">
+    </div>
+
+    <button type="submit">
+      Update job
+    </button>
+  </form>
+</article>
+
+<hr>

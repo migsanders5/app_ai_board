@@ -1,0 +1,99 @@
+<h1>
+  List of all jobs
+</h1>
+
+<hr>
+
+<article>
+  <header>
+    <h2>
+      Add a new job
+    </h2>
+  </header>
+
+  <form action="/insert_job" method="post">
+    <div>
+      <label for="title_box">
+        Title
+      </label>
+
+      <input type="text" id="title_box" name="query_title">
+    </div>
+
+    <div>
+      <label for="company_box">
+        Company
+      </label>
+
+      <input type="text" id="company_box" name="query_company">
+    </div>
+
+    <div>
+      <label for="application_url_box">
+        Application url
+      </label>
+
+      <input type="text" id="application_url_box" name="query_application_url">
+    </div>
+
+    <div>
+      <label for="deadline_box">
+        Deadline
+      </label>
+
+      <input type="date" id="deadline_box" name="query_deadline">
+    </div>
+
+    <div>
+      <label for="tag_box">
+        Tag (optional)
+      </label>
+
+      <input type="text" id="tag_box" name="query_tag" placeholder="e.g. internship">
+    </div>
+
+    <button type="submit">
+      Create job
+    </button>
+  </form>
+</article>
+
+<hr>
+
+<article>
+  <p>
+    Sort by:
+    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=created_at">Date Posted</a> |
+    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=deadline">Deadline</a>
+  </p>
+
+  <p>
+    Filter by tag:
+    <% @all_tags.each do |a_tag| %>
+      <a href="/jobs?tag=<%= a_tag %>&sort=<%= @sort %>"><%= a_tag %></a>
+    <% end %>
+    <% if @tag_filter.present? %>
+      | <a href="/jobs?sort=<%= @sort %>">Clear filter</a>
+    <% end %>
+  </p>
+</article>
+
+<hr>
+
+<article>
+  <ul>
+    <% @list_of_jobs.each do |a_job| %>
+      <li>
+        <a href="/jobs/<%= a_job.id %>">
+          <%= a_job.title %>
+        </a>
+        — <%= a_job.company %> — Deadline: <%= a_job.deadline %>
+        <% if a_job.tags.any? %>
+          [<%= a_job.tags.map(&:tag).join(", ") %>]
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</article>
+
+<hr>
