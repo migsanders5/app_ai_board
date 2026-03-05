@@ -53,7 +53,10 @@
         <li style="flex-wrap:wrap; gap:.35rem;">
           <a href="/jobs/<%= a_job.id %>"><%= a_job.title %></a>
           <span class="item-meta"><%= a_job.company %></span>
-          <span class="item-meta">&mdash; Deadline: <%= a_job.deadline.strftime("%b %-d, %Y") %></span>
+          <span class="item-meta">
+            &mdash; Deadline:
+            <%= a_job.deadline.present? ? a_job.deadline.strftime("%b %-d, %Y") : "Not specified" %>
+          </span>
           <% a_job.tags.each do |t| %>
             <span class="tag-badge"><%= t.tag %></span>
           <% end %>

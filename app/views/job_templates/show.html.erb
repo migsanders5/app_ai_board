@@ -14,7 +14,7 @@
     <dd><a href="<%= @the_job.application_url %>" target="_blank"><%= @the_job.application_url %></a></dd>
 
     <dt>Deadline</dt>
-    <dd><%= @the_job.deadline.strftime("%B %-d, %Y") %></dd>
+    <dd><%= @the_job.deadline.present? ? @the_job.deadline.strftime("%B %-d, %Y") : "Not specified" %></dd>
 
     <dt>Posted</dt>
     <dd><%= time_ago_in_words(@the_job.created_at) %> ago</dd>
