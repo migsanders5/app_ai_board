@@ -1,22 +1,20 @@
 Rails.application.routes.draw do
-  # Routes for the Rsvp resource:
+  # routes for rsvp:
 
-  # CREATE
-  post("/insert_rsvp", { :controller => "rsvps", :action => "create" })
+  post("/make_rsvp", { :controller => "rsvps", :action => "create" })
 
-  # READ
   get("/rsvps", { :controller => "rsvps", :action => "index" })
 
   get("/rsvps/:path_id", { :controller => "rsvps", :action => "show" })
 
-  # UPDATE
+  
 
   post("/modify_rsvp/:path_id", { :controller => "rsvps", :action => "update" })
 
   # DELETE
   get("/delete_rsvp/:path_id", { :controller => "rsvps", :action => "destroy" })
 
-  #------------------------------
+  
 
   # Routes for the Meeting resource:
 
@@ -35,7 +33,7 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_meeting/:path_id", { :controller => "meetings", :action => "destroy" })
 
-  #------------------------------
+  
 
   # Routes for the Tag resource:
 
@@ -54,7 +52,7 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_tag/:path_id", { :controller => "tags", :action => "destroy" })
 
-  #------------------------------
+  
 
   # Routes for the Comment resource:
 
@@ -73,7 +71,7 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_comment/:path_id", { :controller => "comments", :action => "destroy" })
 
-  #------------------------------
+  
 
   # Routes for the Article resource:
 
@@ -92,7 +90,7 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_article/:path_id", { :controller => "articles", :action => "destroy" })
 
-  #------------------------------
+  
 
   # Routes for the Job resource:
 
