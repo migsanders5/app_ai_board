@@ -35,7 +35,7 @@
       <span class="item-meta">No tags yet.</span>
     <% end %>
   </div>
-  <form action="/insert_tag" method="post" style="display:flex; gap:.5rem; align-items:center;">
+  <form action="/create_tag" method="post" style="display:flex; gap:.5rem; align-items:center;">
     <input type="hidden" name="query_job_id" value="<%= @the_job.id %>">
     <input type="text" name="query_tag" placeholder="Add a tag…" style="width:auto; flex:1;">
     <button type="submit">Add</button>

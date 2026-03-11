@@ -29,7 +29,7 @@
     <p style="color: var(--success-fg); font-weight: 600;">&#10003; You are going!</p>
     <a href="/delete_rsvp/<%= @current_user_rsvp.id %>" class="btn-danger" style="font-size:.875rem;">Cancel RSVP</a>
   <% else %>
-    <form action="/insert_rsvp" method="post">
+    <form action="/create_rsvp" method="post">
       <input type="hidden" name="query_meeting_id" value="<%= @the_meeting.id %>">
       <input type="hidden" name="query_going" value="true">
       <button type="submit">RSVP to this meeting</button>
