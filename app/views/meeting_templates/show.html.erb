@@ -57,14 +57,21 @@
 
   <h3>Attendees (<%= @list_of_rsvps.count %>)</h3>
   <ul class="attendee-list">
-    <% if @list_of_rsvps.any? %>
-      <% @list_of_rsvps.each do |an_rsvp| %>
-        <li><%= an_rsvp.user.name.presence || an_rsvp.user.email %></li>
-      <% end %>
-    <% else %>
-      <li><span class="item-meta">No RSVPs yet.</span></li>
+  <% if @list_of_rsvps.any? %>
+    <% @list_of_rsvps.each do |an_rsvp| %>
+      <li>
+        <% if an_rsvp.user.name.present? %>
+          <%= an_rsvp.user.name %>
+        <% else %>
+          <%= an_rsvp.user.email %>
+        <% end %>
+      </li>
     <% end %>
-  </ul>
+  <% else %>
+    <li><span class="item-meta">No RSVPs yet.</span></li>
+  <% end %>
+</ul>
+
 </div>
 
 <div class="card">
