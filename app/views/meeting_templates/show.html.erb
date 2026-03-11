@@ -11,14 +11,31 @@
     <dd><%= @the_meeting.date.strftime("%B %-d, %Y") %></dd>
 
     <dt>Time</dt>
-    <dd><%= @the_meeting.time.strftime("%-I:%M %p") rescue @the_meeting.time %></dd>
+    <dd>
+      <% if @the_meeting.time %>
+      <%= @the_meeting.time.strftime("%-I:%M %p") %>
+      <% else %>
+        TBD
+      <% end %>
+    </dd>
 
     <dt>Location</dt>
-    <dd><%= @the_meeting.location.presence || "TBD" %></dd>
+    <dd>
+      <% if @the_meeting.location.present? %>
+      <%= @the_meeting.location %>
+      <% else %>
+        TBD
+      <% end %>
+    </dd>
 
     <% if @the_meeting.user %>
       <dt>Contact</dt>
-      <dd><a href="mailto:<%= @the_meeting.user.email %>">Contact <%= @the_meeting.user.name.presence || @the_meeting.user.email %> for more info</a></dd>
+        <dd>
+          Contact 
+          <a href="mailto:<%= @the_meeting.user.email %>">
+          <%= @the_meeting.user.email %>
+          </a> for more info
+        </dd>
     <% end %>
   </dl>
 </div>
