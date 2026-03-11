@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # routes for rsvps:
 
-  post("/make_rsvp", { :controller => "rsvps", :action => "create" })
+  post("/create_rsvp", { :controller => "rsvps", :action => "create" })
 
   get("/rsvps", { :controller => "rsvps", :action => "index" })
 
