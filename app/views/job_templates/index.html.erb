@@ -1,5 +1,13 @@
 <h1>Jobs &amp; Opportunities</h1>
 
+<style>
+  .active-tag {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  }
+</style>
+
 <div class="card">
   <h2>Post a New Job</h2>
   <form action="/create_job" method="post">
@@ -20,7 +28,7 @@
       <input type="date" id="deadline_box" name="query_deadline">
     </div>
     <div class="form-group">
-      <label for="tag_box">Tag <span style="font-weight:400; color:var(--muted)">(optional, e.g. internship)</span></label>
+      <label for="tag_box">Tag <span style="font-weight:400; color:var(--muted)">(optional, e.g. Python)</span></label>
       <input type="text" id="tag_box" name="query_tag">
     </div>
     <button type="submit">Post job</button>
@@ -37,7 +45,12 @@
     <div>
       <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Filter:</span>
       <% @all_tags.each do |a_tag| %>
-        <a href="/jobs?tag=<%= a_tag %>&sort=<%= @sort %>" class="tag-badge" style="margin-left:.35rem;"><%= a_tag %></a>
+        <a href="/jobs?tag=<%= a_tag %>&sort=<%= @sort %>"
+          class="tag-badge <%= 'active-tag' if a_tag == @tag_filter %>"
+          style="margin-left:.35rem;">
+          <%= a_tag %>
+        </a>
+
       <% end %>
       <% if @tag_filter.present? %>
         <a href="/jobs?sort=<%= @sort %>" style="font-size:.8rem; margin-left:.5rem; color:var(--muted);">Clear filter &times;</a>
