@@ -57,8 +57,8 @@
             &mdash; Deadline:
             <%= a_job.deadline.present? ? a_job.deadline.strftime("%b %-d, %Y") : "Not specified" %>
           </span>
-          <% a_job.tags.each do |t| %>
-            <span class="tag-badge"><%= t.tag %></span>
+          <% a_job.tags.each do |a_tag| %>
+            <span class="tag-badge"><%= a_tag.tag %></span>
           <% end %>
         </li>
       <% end %>
