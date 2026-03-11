@@ -6,6 +6,12 @@
   }
 </style>
 
+<style>
+  .active-sort {
+  border-color: blue;
+  }
+</style>
+
 <div class="card">
   <h2>Post a New Job</h2>
   <form action="/create_job" method="post">
@@ -36,9 +42,18 @@
 <div style="display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem;">
   <div>
     <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Sort:</span>
-    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=created_at" class="tag-badge" style="margin-left:.35rem;">Date posted</a>
-    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=deadline" class="tag-badge">Deadline</a>
+    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=created_at"
+     class="tag-badge <%= 'active-sort' if @sort == 'created_at' %>"
+     style="margin-left:.35rem;">
+     Date posted
+    </a>
+
+    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=deadline"
+     class="tag-badge <%= 'active-sort' if @sort == 'deadline' %>">
+     Deadline
+    </a>
   </div>
+  
   <% if @all_tags.any? %>
     <div>
       <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Filter:</span>
