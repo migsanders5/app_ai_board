@@ -19,13 +19,13 @@
 </div>
 
 <div class="card">
-  <h2>Comments (<%= @list_of_comments.count %>)</h2>
+  <h2>Comments</h2>
   <ul class="comment-list">
     <% if @list_of_comments.any? %>
       <% @list_of_comments.each do |a_comment| %>
         <li style="display:flex; justify-content:space-between; align-items:baseline;">
           <span>
-            <strong><%= a_comment.user_id %></strong>
+            <strong><%= a_comment.user_name %></strong>
             &nbsp;<%= a_comment.comment %>
           </span>
           <a href="/delete_comment/<%= a_comment.id %>" class="btn-danger" data-turbo-prefetch="false" style="font-size:.8rem; white-space:nowrap;">Delete</a>
