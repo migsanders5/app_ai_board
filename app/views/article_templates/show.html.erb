@@ -1,6 +1,6 @@
 <div class="page-actions">
   <a href="/articles">&larr; Back to articles</a>
-  <a href="/delete_article/<%= @the_article.id %>" class="btn-danger">Delete article</a>
+  <a href="/delete_article/<%= @the_article.id %>" class="btn-danger" data-turbo-prefetch="false">Delete article</a>
 </div>
 
 <h1><%= @the_article.article_title %></h1>
@@ -28,7 +28,7 @@
             <strong><%= a_comment.user_id %></strong>
             &nbsp;<%= a_comment.comment %>
           </span>
-          <a href="/delete_comment/<%= a_comment.id %>" class="btn-danger" style="font-size:.8rem; white-space:nowrap;">Delete</a>
+          <a href="/delete_comment/<%= a_comment.id %>" class="btn-danger" data-turbo-prefetch="false" style="font-size:.8rem; white-space:nowrap;">Delete</a>
         </li>
       <% end %>
     <% else %>
