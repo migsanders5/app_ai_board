@@ -82,7 +82,7 @@
       <% if @list_of_jobs.any? %>
         <% @list_of_jobs.each do |a_job| %>
           <li style="flex-wrap:wrap; gap:.35rem;">
-            <a href="/jobs/<%= a_job.id %>"><%= a_job.title %></a>
+            <a href="/jobs/<%= a_job.id %>" data-turbo-frame="_top"><%= a_job.title %></a>
             <span class="item-meta"><%= a_job.company %></span>
             <span class="item-meta">
               &mdash; Deadline:
