@@ -25,7 +25,7 @@
       <% @list_of_comments.each do |a_comment| %>
         <li style="display:flex; justify-content:space-between; align-items:baseline;">
           <span>
-            <strong><%= a_comment.user_name %></strong>
+            <strong><%= a_comment.user.name %></strong>
             &nbsp;<%= a_comment.comment %>
           </span>
           <a href="/delete_comment/<%= a_comment.id %>" class="btn-danger" data-turbo-prefetch="false" style="font-size:.8rem; white-space:nowrap;">Delete</a>
