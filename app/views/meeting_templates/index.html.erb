@@ -31,6 +31,8 @@
         <li>
           <a href="/meetings/<%= a_meeting.id %>"><%= a_meeting.meeting_name %></a>
           <span class="item-meta"><%= a_meeting.date.strftime("%B %-d, %Y") %></span>
+          at
+            <%= a_meeting.time.strftime("%-I:%M %p") %>
         </li>
       <% end %>
     <% else %>
