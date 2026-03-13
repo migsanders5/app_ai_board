@@ -39,38 +39,46 @@
   </form>
 </div>
 
-<div style="display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem;">
-  <div>
-    <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Sort:</span>
-    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=created_at"
-     class="tag-badge <%= 'active-sort' if @sort == 'created_at' %>"
-     style="margin-left:.35rem;">
-     Date posted
-    </a>
-
-    <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=deadline"
-     class="tag-badge <%= 'active-sort' if @sort == 'deadline' %>">
-     Deadline
-    </a>
-  </div>
-  
-  <% if @all_tags.any? %>
+<turbo-frame id="jobs_list">
+  <div style="display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem;">
     <div>
-      <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Filter:</span>
-      <% @all_tags.each do |a_tag| %>
-        <a href="/jobs?tag=<%= a_tag %>&sort=<%= @sort %>"
-          class="tag-badge <%= 'active-tag' if a_tag == @tag_filter %>"
-          style="margin-left:.35rem;">
-          <%= a_tag %>
-        </a>
+      <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Sort:</span>
+      <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=created_at"
+     class="tag-badge <%= 'active-sort' if @sort == 'created_at' %>"
+     data-turbo-frame="jobs_list"
+     style="margin-left:.35rem;">
+        Date posted
+      </a>
 
-      <% end %>
-      <% if @tag_filter.present? %>
-        <a href="/jobs?sort=<%= @sort %>" style="font-size:.8rem; margin-left:.5rem; color:var(--muted);">Clear filter &times;</a>
-      <% end %>
+      <a href="/jobs?<%= @tag_filter.present? ? "tag=#{@tag_filter}&" : "" %>sort=deadline"
+     class="tag-badge <%= 'active-sort' if @sort == 'deadline' %>">
+     data-turbo-frame="jobs_list"
+        Deadline
+      </a>
     </div>
-  <% end %>
-</div>
+
+    <% if @all_tags.any? %>
+      <div>
+        <span style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">Filter:</span>
+        <% @all_tags.each do |a_tag| %>
+          <a href="/jobs?tag=<%= a_tag %>&sort=<%= @sort %>"
+          class="tag-badge <%= 'active-tag' if a_tag == @tag_filter %>"
+          data-turbo-frame="jobs_list"
+          style="margin-left:.35rem;">
+            <%= a_tag %>
+          </a>
+
+        <% end %>
+        <% if @tag_filter.present? %>
+          <a href="/jobs?sort=<%= @sort %>" 
+          data-turbo-frame="jobs_list"
+          style="font-size:.8rem; margin-left:.5rem; color:var(--muted);">Clear filter &times;</a>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</turbo-frame>
+
 
 <div class="card">
   <ul class="item-list">
